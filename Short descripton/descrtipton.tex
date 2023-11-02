@@ -66,7 +66,7 @@
 \newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
 
 % naslednje ukaze ustrezno popravi
-\newcommand{\program}{Financial mathematics} % ime studijskega programa: Matematika/Finančna matematika
+\newcommand{\program}{Finančna matematika} % ime studijskega programa: Matematika/Finančna matematika
 \newcommand{\imeavtorja}{Marcel Blagotinšek, Peter Milivojević} % ime avtorja
 \newcommand{\imementorja}{doc. dr. Janoš Vidali} % akademski naziv in ime mentorja
 \newcommand{\imesomentorja}{prof. dr. Riste Škrekovski}
@@ -77,16 +77,16 @@
 
 \thispagestyle{empty}
 \noindent{\large
-UNIVERSITY OF LJUBLJANA\\[1mm]
-FACULTY OF MATHEMATICS AND PHYSICS\\[5mm]
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
 \program\ }
 \vfill
 
 \begin{center}{\large
 \imeavtorja\\[2mm]
 {\bf \naslovdela}\\[10mm]
-Team Project\\[2mm]
-Short Description\\[1cm]
+Skupinski projekt\\[2mm]
+Kratek opis problema\\[1cm]
 Advisers: \imementorja, \\ \imesomentorja\\[2mm]}
 \end{center}
 \vfill
@@ -95,10 +95,124 @@ Advisers: \imementorja, \\ \imesomentorja\\[2mm]}
 Ljubljana, \letnica}
 \pagebreak
 
-\section{Introduction}
+\section{Navodilo naloge}
 
-With this project ...
+A connected graph with diameter $d$ on $n$ vertices with the minimal number of edges will be a
+tree and henceforth, it will have $n - 1$ edges. It will be harder to answer which graphs on a
+fixed number of vertices $n$ and fixed diameter $d$ have the maximal number of edges. We want to
+analyse the structure of such graphs. So, for a fixed number of vertices $n$ and a fixed diameter
+$d$, when these two values are small, apply an exhaustive search. Next, for larger $n$ and $d$, apply
+some metaheuristic. Try to obtain some specific properties of these graphs. Verify for how large
+$n$ and $d$ your exhaustive search and your metaheuristic implementations are efficent.
 
+
+\section{Opis problema}
+
+Naloga nam zastavlja problem ugotovitve največjega možnega števila povezav v povezanih grafih
+z določenim številom točk $n$ in določenim premerom $d$. Za $d = 1$ ugotovimo, da je ne glede
+na izbiro števila vozlišč $n$, iskani graf ravno polni graf in ima posledično
+$\frac{n (n - 1)}{2}$ povezav. V nasledjem koraku hitro ugotovimo, da se pri $d = 2$ število
+povezav zmanjša le za $1$, saj se z odstranitvijo katere koli poljubne povezave v polnem grafu
+premer poveča na $d = 2$ in ker smo za to potrebovali odstraniti le eno samo povezavo je največje
+možno število povezav v grafu z $n$ točkami in premerom $d = 2$ enako $\frac{n (n - 1)}{2} - 1$.
+Podobno opazimo, da so grafi za premere $d = n - 1$ ravno drevesa s stopnjo $2$ in je zato število
+povezav enako $n - 1$. Tako nas pri dani nalogi v resnici zanimajo predvsem grafi za katere velja
+$d \in \{3, \dots, n - 2\}$.
+
+
+\section{Potek dela}
+
+Nalogo sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
+pomagala tudi z algoritmom napisanim spodaj. Opazila sva, da so iskani grafi za premer $d = 1$ polni grafi in
+imajo kot taki $\frac{n (n - 1)}{2}$ povezav. Za premer $d = 2$ sva opazila, da je potrebno odstraniti
+polnemu grafu le eno povezavo in je tako maksimalno število povezav enako $\frac{n (n - 1)}{2} - 1$. Grafi s
+premerom $d = n - 1$ so prav tako enolično določeni kot drevesa s stopnjo 2 in imajo tako $n - 1$ povezav.
+Tako sva nadaljevala z reševanjem jedra problema, ki so grafi s premerom $d \in \{3, \dots, n - 2\}$.\\
+
+\begin{verbatim}
+    def find_connected_graph_with_diameter(n, d):
+        max_edges = 0
+        max_edges_graph = None
+        for G in graphs.nauty_geng(str(n) + " -c"):
+            diameter = G.diameter()
+            if diameter == d:
+                num_edges = G.size()
+                if num_edges > max_edges:
+                    max_edges = num_edges
+                    max_edges_graph = G.copy()
+    return max_edges_graph, max_edges
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+results = []
+for n in range(1, 10):
+    for d in range(1, n):
+        max_edges_graph, max_edges = find_connected_graph_with_diameter(n, d)
+        result_dict = {
+            'n': n,
+            'd': d,
+            'max_edges': max_edges
+        }
+        results.append(result_dict)
+
+df = pd.DataFrame(results)
+print(df)
+
+plt.figure(figsize=(10, 6))
+for n in range(1, 9):
+    subset = df[df['n'] == n]
+    plt.plot(subset['d'], subset['max_edges'], label=f'n={n}')
+plt.xlabel('diameter (d)')
+plt.ylabel('maximum Edges')
+plt.legend()
+plt.title('max_edges(d) for different n')
+plt.show()
+
+\end{verbatim}
+
+Napisani algoritem je dal podatke o največjem možnem številu povezav za grafe do $10$ vozlišč,
+ki sva jih uredila v sledečo tabelo:
+
+\begin{center}
+    \begin{tabular}{||c c c c c c c c c c||} 
+     \hline
+     n\textbackslash d & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ [0.5ex] 
+     \hline\hline
+     2 & 1 & & & & & & & & \\ 
+     \hline
+     3 & 3 & 2 & & & & & & & \\ 
+     \hline
+     4 & 6 & 5 & 3 & & & & & & \\
+     \hline
+     5 & 10 & 9 & 6 & 4 & & & & & \\
+     \hline
+     6 & 15 & 14 & 10 & 7 & 5 & & & & \\ 
+     \hline
+     7 & 21 & 20 & 15 & 11 & 8 & 6 & & & \\ 
+     \hline
+     8 & 28 & 27 & 21 & 16 & 12 & 9 & 7 & & \\ 
+     \hline
+     9 & 36 & 35 & 28 & 22 & 17 & 13 & 10 & 8 & \\ 
+     \hline
+     10 & 45 & 44 & 36 & 29 & 23 & 18 & 14 & 11 & 9 \\ 
+     \hline
+    \end{tabular}
+\end{center}
+
+% tle bo treba še elegantno dodat tvoj postopek izračuna
+Iz tabele smo s sledečim računom prišli do formule, ki nam za $d > 1$ pove maksimalno število povezav za
+grafe do $n = 10$ vozlišč in morda še več, za kar trenutno ne moremo še zagotovo trditi.\\
+
+
+Z opazovanjem generiranih grafov sva opazila, da vsi grafi vsebujejo poln podgraf velikosti $n - d + 1$.
+V nadaljevanju smo opazili, da imajo grafi za premere $d > 1$ poleg $\frac{(n - d + 1)(n - d)}{2}$ povezav (zaradi
+prej opaženega polnega grafa velikosti $n - d + 1$) dodatno še $n - 2$ povezav, ki niso enolično določene.
+Tako imamo ponovno podano enako formulo ki nam za grafe s premerom $d > 2$ pove, da je maksimalno število
+povezav enako $\frac{(n - d + 1)(n - d)}{2} + n - 2$.\\
+
+
+V drugem delu naloge se bova problema lotila s metahurističnim pristopom.
 
 
 \end{document}
