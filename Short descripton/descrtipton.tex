@@ -123,12 +123,13 @@ $d \in \{3, \dots, n - 2\}$.
 \section{Potek dela}
 
 Nalogo sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
-pomagala tudi z algoritmom napisanim spodaj. Opazila sva, da so iskani grafi za premer $d = 1$ polni grafi in
+pomagala tudi z algoritmi napisanimi spodaj. Opazila sva, da so iskani grafi za premer $d = 1$ polni grafi in
 imajo kot taki $\frac{n (n - 1)}{2}$ povezav. Za premer $d = 2$ sva opazila, da je potrebno odstraniti
 polnemu grafu le eno povezavo in je tako maksimalno število povezav enako $\frac{n (n - 1)}{2} - 1$. Grafi s
 premerom $d = n - 1$ so prav tako enolično določeni kot drevesa s stopnjo 2 in imajo tako $n - 1$ povezav.
 Tako sva nadaljevala z reševanjem jedra problema, ki so grafi s premerom $d \in \{3, \dots, n - 2\}$.\\
 
+\noindent 1.\ algoritem:
 \begin{verbatim}
     def find_connected_graph_with_diameter(n, d):
         max_edges = 0
@@ -142,63 +143,76 @@ Tako sva nadaljevala z reševanjem jedra problema, ki so grafi s premerom $d \in
                     max_edges_graph = G.copy()
     return max_edges_graph, max_edges
 
-import pandas as pd
-import matplotlib.pyplot as plt
+\end{verbatim}
+\pagebreak
+2.\ algoritem:
+\begin{verbatim}
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    
+    results = []
+    
+    for n in range(1, 10):
+        for d in range(1, n):
+            max_edges_graph, max_edges = find_connected_graph_with_diameter(n, d)
+            result_dict = {
+                'n': n,
+                'd': d,
+                'max_edges': max_edges
+            }
+            results.append(result_dict)
+    
+    
+    df = pd.DataFrame(results)
+    
+    print(df)
+    
+    plt.figure(figsize=(10, 6))
+    for n in range(1, 10):
+        subset = df[df['n'] == n]
+        plt.plot(subset['d'], subset['max_edges'], label=f'n={n}')
+    plt.xlabel('diameter (d)')
+    plt.ylabel('maximum Edges')
+    plt.legend()
+    plt.title('max_edges(d) for different n')
+    plt.show()
 
-results = []
-for n in range(1, 10):
-    for d in range(1, n):
-        max_edges_graph, max_edges = find_connected_graph_with_diameter(n, d)
-        result_dict = {
-            'n': n,
-            'd': d,
-            'max_edges': max_edges
-        }
-        results.append(result_dict)
-
-df = pd.DataFrame(results)
-print(df)
-
-plt.figure(figsize=(10, 6))
-for n in range(1, 9):
-    subset = df[df['n'] == n]
-    plt.plot(subset['d'], subset['max_edges'], label=f'n={n}')
-plt.xlabel('diameter (d)')
-plt.ylabel('maximum Edges')
-plt.legend()
-plt.title('max_edges(d) for different n')
-plt.show()
 
 \end{verbatim}
 
 Napisani algoritem je dal podatke o največjem možnem številu povezav za grafe do $10$ vozlišč,
-ki sva jih uredila v sledečo tabelo:
+ki sva jih uredila v sledečo tabelo in prikazala na grafikonu:
 
-\begin{center}
-    \begin{tabular}{||c c c c c c c c c c||} 
-     \hline
-     n\textbackslash d & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ [0.5ex] 
-     \hline\hline
-     2 & 1 & & & & & & & & \\ 
-     \hline
-     3 & 3 & 2 & & & & & & & \\ 
-     \hline
-     4 & 6 & 5 & 3 & & & & & & \\
-     \hline
-     5 & 10 & 9 & 6 & 4 & & & & & \\
-     \hline
-     6 & 15 & 14 & 10 & 7 & 5 & & & & \\ 
-     \hline
-     7 & 21 & 20 & 15 & 11 & 8 & 6 & & & \\ 
-     \hline
-     8 & 28 & 27 & 21 & 16 & 12 & 9 & 7 & & \\ 
-     \hline
-     9 & 36 & 35 & 28 & 22 & 17 & 13 & 10 & 8 & \\ 
-     \hline
-     10 & 45 & 44 & 36 & 29 & 23 & 18 & 14 & 11 & 9 \\ 
-     \hline
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} 
+    \hline
+    \multicolumn{1}{|c|}{\textbf{n$\backslash$d}} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\ 
+    \hline
+    2 & 1 & & & & & & & & \\ 
+    3 & 3 & 2 & & & & & & & \\ 
+    4 & 6 & 5 & 3 & & & & & & \\
+    5 & 10 & 9 & 6 & 4 & & & & & \\
+    6 & 15 & 14 & 10 & 7 & 5 & & & & \\ 
+    7 & 21 & 20 & 15 & 11 & 8 & 6 & & & \\ 
+    8 & 28 & 27 & 21 & 16 & 12 & 9 & 7 & & \\ 
+    9 & 36 & 35 & 28 & 22 & 17 & 13 & 10 & 8 & \\ 
+    10 & 45 & 44 & 36 & 29 & 23 & 18 & 14 & 11 & 9 \\ 
+    \hline
     \end{tabular}
-\end{center}
+    \caption{Opis tabele.}
+    \label{tab:tabela1}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{C:/Users/Uporabnik/Desktop/graf za do n=9.jpg}
+    \caption{Maksimalno število povezav v odvisnosti od \(d\) pri različnih n.}
+    \label{fig:slika1}
+\end{figure}
+
+\pagebreak
+
 
 % tle bo treba še elegantno dodat tvoj postopek izračuna
 Iz tabele smo s sledečim računom prišli do formule, ki nam za $d > 1$ pove maksimalno število povezav za

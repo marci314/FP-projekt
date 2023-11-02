@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1698955739 "c:/Users/Uporabnik/Desktop/FP-projekt/Short descripton/descrtipton.tex" "descrtipton.pdf" "descrtipton" 1698955740
+["pdflatex"] 1698956813 "c:/Users/Uporabnik/Desktop/FP-projekt/Short descripton/descrtipton.tex" "descrtipton.pdf" "descrtipton" 1698956814
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1634062410 9717281 0a15bc2c2708c83680405c55277cf8f4 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1698167294 82686 2381c3433487640bf26aa76a10db7eb2 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -107,7 +107,6 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/arabi/bblopts.cfg" 1139961600 902 c30e5c373bc58bde21f8f63a3091626f ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/babel-slovenian/slovene.ldf" 1612951983 4834 98ee81640c5ff33462d182c4f24765fe ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/base/inputenc.sty" 1623738100 5049 969aec05d5f39c43f8005910498fcf90 ""
-  "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/base/omscmr.fd" 1623738100 2469 ed49302eacbaebdd899d39dedcd25393 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption-ams-smf.sto" 1696165987 2176 c0bb71a9780b6b41388cfa629b1a32f7 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty" 1696165987 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty" 1696165987 72619 ee90b6612147680fd73c3b1406a74245 ""
@@ -138,10 +137,11 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/pgf/utilities/pgfrcs.sty" 1621069645 325 f9f16d12354225b7dd52a3321f085955 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1623002060 55589 34128738f682d033422ca125f82e5d62 ""
-  "c:/Users/Uporabnik/Desktop/FP-projekt/Short descripton/descrtipton.tex" 1698955715 8197 a25b45f19c622bdb03d805ceda9eecc3 ""
-  "descrtipton.aux" 1698955740 589 28a160799c9839abfd5f0d851c865f32 "pdflatex"
-  "descrtipton.tex" 1698955715 8197 a25b45f19c622bdb03d805ceda9eecc3 ""
+  "C:/Users/Uporabnik/Desktop/graf za do n=9.jpg" 1698956376 48517 a6ae72e453325f457fa6252976fe6be7 ""
+  "c:/Users/Uporabnik/Desktop/FP-projekt/Short descripton/descrtipton.tex" 1698956812 8743 e28f94d31d19e6d6fde231e201c29054 ""
+  "descrtipton.aux" 1698956814 998 70c8ba75133c6110514726399480bd3c "pdflatex"
+  "descrtipton.tex" 1698956812 8743 e28f94d31d19e6d6fde231e201c29054 ""
   (generated)
-  "descrtipton.log"
   "descrtipton.aux"
+  "descrtipton.log"
   "descrtipton.pdf"
