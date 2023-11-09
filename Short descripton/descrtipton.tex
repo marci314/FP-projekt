@@ -86,7 +86,7 @@ FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
 \imeavtorja\\[2mm]
 {\bf \naslovdela}\\[10mm]
 Skupinski projekt\\[2mm]
-Kratek opis problema\\[1cm]
+Kratek opis\\[1cm]
 Advisers: \imementorja, \\ \imesomentorja\\[2mm]}
 \end{center}
 \vfill
@@ -108,125 +108,33 @@ $n$ and $d$ your exhaustive search and your metaheuristic implementations are ef
 
 \section{Opis problema}
 
-Naloga nam zastavlja problem ugotovitve največjega možnega števila povezav v povezanih grafih
-z določenim številom točk $n$ in določenim premerom $d$. Za $d = 1$ ugotovimo, da je ne glede
-na izbiro števila vozlišč $n$, iskani graf ravno polni graf in ima posledično
-$\frac{n (n - 1)}{2}$ povezav. V nasledjem koraku hitro ugotovimo, da se pri $d = 2$ število
-povezav zmanjša le za $1$, saj se z odstranitvijo katere koli poljubne povezave v polnem grafu
-premer poveča na $d = 2$ in ker smo za to potrebovali odstraniti le eno samo povezavo je največje
-možno število povezav v grafu z $n$ točkami in premerom $d = 2$ enako $\frac{n (n - 1)}{2} - 1$.
-Podobno opazimo, da so grafi za premere $d = n - 1$ ravno drevesa s stopnjo $2$ in je zato število
-povezav enako $n - 1$. Tako nas pri dani nalogi v resnici zanimajo predvsem grafi za katere velja
-$d \in \{3, \dots, n - 2\}$.
+Želiva poiskati povezane grafe na $n$ vozliščih s premerom $d$, ki bodo imeli maksimalno število povezav. Najin cilj je, na podlagi 
+testiranja oz.\ generiranja, pridobiti kar se da dober vpogled v strukturo teh grafov in posledično ugotoviti, če za njih veljajo kakšne 
+posebne lastnosti. Za majhne vrednosti $n$ in $d$, se bova problema lotila z generiranjem grafov, za večje pa bova uporabila metodo simulated 
+annealing. Ugotavljala bova tudi efektivnost najinih metod v odvisnosti od vrednosti $n$ in $d$.
 
 
-\section{Potek dela}
+\section{Potek Dela}
 
-Nalogo sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
-pomagala tudi z algoritmi napisanimi spodaj. Opazila sva, da so iskani grafi za premer $d = 1$ polni grafi in
-imajo kot taki $\frac{n (n - 1)}{2}$ povezav. Za premer $d = 2$ sva opazila, da je potrebno odstraniti
-polnemu grafu le eno povezavo in je tako maksimalno število povezav enako $\frac{n (n - 1)}{2} - 1$. Grafi s
-premerom $d = n - 1$ so prav tako enolično določeni kot drevesa s stopnjo 2 in imajo tako $n - 1$ povezav.
-Tako sva nadaljevala z reševanjem jedra problema, ki so grafi s premerom $d \in \{3, \dots, n - 2\}$.\\
-
-\noindent 1.\ algoritem:
-\begin{verbatim}
-    def find_connected_graph_with_diameter(n, d):
-        max_edges = 0
-        max_edges_graph = None
-        for G in graphs.nauty_geng(str(n) + " -c"):
-            diameter = G.diameter()
-            if diameter == d:
-                num_edges = G.size()
-                if num_edges > max_edges:
-                    max_edges = num_edges
-                    max_edges_graph = G.copy()
-    return max_edges_graph, max_edges
-
-\end{verbatim}
-\pagebreak
-2.\ algoritem:
-\begin{verbatim}
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    
-    results = []
-    
-    for n in range(1, 10):
-        for d in range(1, n):
-            max_edges_graph, max_edges = find_connected_graph_with_diameter(n, d)
-            result_dict = {
-                'n': n,
-                'd': d,
-                'max_edges': max_edges
-            }
-            results.append(result_dict)
-    
-    
-    df = pd.DataFrame(results)
-    
-    print(df)
-    
-    plt.figure(figsize=(10, 6))
-    for n in range(1, 10):
-        subset = df[df['n'] == n]
-        plt.plot(subset['d'], subset['max_edges'], label=f'n={n}')
-    plt.xlabel('diameter (d)')
-    plt.ylabel('maximum Edges')
-    plt.legend()
-    plt.title('max_edges(d) for different n')
-    plt.show()
-
-
-\end{verbatim}
-
-Napisani algoritem je dal podatke o največjem možnem številu povezav za grafe do $10$ vozlišč,
-ki sva jih uredila v sledečo tabelo in prikazala na grafikonu:
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} 
-    \hline
-    \multicolumn{1}{|c|}{\textbf{n$\backslash$d}} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\ 
-    \hline
-    2 & 1 & & & & & & & & \\ 
-    3 & 3 & 2 & & & & & & & \\ 
-    4 & 6 & 5 & 3 & & & & & & \\
-    5 & 10 & 9 & 6 & 4 & & & & & \\
-    6 & 15 & 14 & 10 & 7 & 5 & & & & \\ 
-    7 & 21 & 20 & 15 & 11 & 8 & 6 & & & \\ 
-    8 & 28 & 27 & 21 & 16 & 12 & 9 & 7 & & \\ 
-    9 & 36 & 35 & 28 & 22 & 17 & 13 & 10 & 8 & \\ 
-    10 & 45 & 44 & 36 & 29 & 23 & 18 & 14 & 11 & 9 \\ 
-    \hline
-    \end{tabular}
-    \caption{Opis tabele.}
-    \label{tab:tabela1}
-\end{table}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\textwidth]{C:/Users/Uporabnik/Desktop/graf za do n=9.jpg}
-    \caption{Maksimalno število povezav v odvisnosti od \(d\) pri različnih n.}
-    \label{fig:slika1}
-\end{figure}
-
-\pagebreak
-
-
-% tle bo treba še elegantno dodat tvoj postopek izračuna
-Iz tabele smo s sledečim računom prišli do formule, ki nam za $d > 1$ pove maksimalno število povezav za
-grafe do $n = 10$ vozlišč in morda še več, za kar trenutno ne moremo še zagotovo trditi.\\
-
-
-Z opazovanjem generiranih grafov sva opazila, da vsi grafi vsebujejo poln podgraf velikosti $n - d + 1$.
-V nadaljevanju smo opazili, da imajo grafi za premere $d > 1$ poleg $\frac{(n - d + 1)(n - d)}{2}$ povezav (zaradi
-prej opaženega polnega grafa velikosti $n - d + 1$) dodatno še $n - 2$ povezav, ki niso enolično določene.
-Tako imamo ponovno podano enako formulo ki nam za grafe s premerom $d > 2$ pove, da je maksimalno število
-povezav enako $\frac{(n - d + 1)(n - d)}{2} + n - 2$.\\
-
-
-V drugem delu naloge se bova problema lotila s metahurističnim pristopom.
-
+Ideja prve faze projekta t.i.\ exhaustive search-a je, da z generiranjem vseh možnih povezanih grafov na $n$ vozliščih s premerom $d$, 
+poiščeva tiste, ki imajo maksimalno število povezav. To bova počela za majhne vrednosti $n$ in $d$. Kako majhne, bo odvisno od časovne 
+zahtevnosti samega algoritma, kajti je pričakovati, da bo že pri ne malo od 5 večjih vrednostih $n$ algoritem počasen. Na podlagi 
+generiranja grafov za različne $n$ in $d$ bova poskušala ugotoviti kakšne lastnosti, tako strukturne kot vizualne, lahko pripiševa 
+tem grafom. Naraščanje/padanje števila povezav v odvisnosti od števila vozlišč oz.\ premetra bova prikazala tudi s pomočjo grafa, 
+ki se bo morda obnašal podobno kot kakšna znana funkcija, kar bo vsekakor pomagalo pri oceni števila povezav za večje vrednosti $n$ 
+in $d$. Kot omenjeno bova poskusila najti kakšno formulo za maksimalno število povezav pri številu vozlišč $n$ in premeru $d$. Tako 
+pridobljene formule, četudi bo morda držala, ne bova dokazovala in jo bova posledično uporabila kot oceno v primeru generiranja grafov. 
+Na koncu bova poleg ugotovitev glede lastnosti grafov v poročilu zapisala tudi pri kako velikih vrednostih $n$ in $d$ je najin algoritem 
+prenehal učinkovito delovati. V drugi fazi projekta se bova problema lotila z metahevristično metodo simulated annealing. Začela bova z 
+nekim začetnim povezanim grafom $G$, ki bo ustrezal pogojem $n$ in $d$, nato pa bova dodala povezavo iz množice povezav komplementa grafa $G$. 
+V kolikor bo premer grafa $G + e$ ostal isti, imamo nov graf, ki ima isti premer vendar povezavo več. Če bo premer novega grafa manjši od $d$, 
+pa bova poiskala vozlišči $u$ in $v$ na maksimalni razdalji in odstranjevala povezave iz poti med $u$ in $v$ toliko časa, dokler ne bo premer 
+spet $d$. Seveda se lahko zgodi, da bo premer večji od $d$, takrat pa bova spet poiskala vozlišči $u$ in $v$ na maksimalni razdalji in dodajala 
+neke povezave na poti med $u$ in $v$ toliko časa, dokler ne bo premer spet $d$. Povezave bova morala dodajati med ustreznimi vozlišči. Torej, 
+če bo nov premer $d-1$, bova dodala povezavo med vozliščema na oddaljenosti 2. Pri tem se zavedava, da z neko verjetnostjo v nekem koraku vzameva 
+graf z manj povezavami, ki pa je morda boljše izhodišče za naprej. \pagebreak Tudi tukaj bova začela na manjših vrednostih, in s tem preveriva, če najin 
+algoritem deluje, nato pa $n$ in $d$ povečujeva. Tudi v drugi fazi projekta bova pozorna na efektivnost oz. časovno zahtevnost, ter bova ugotovitve 
+glede tega zapisala v poročilu.\\
+Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
 
 \end{document}
