@@ -1,6 +1,6 @@
-PWD c:\Users\Uporabnik\Desktop\FP-projekt\Short descripton
+PWD c:\Users\Uporabnik\Desktop\FP-projekt\Kratek opis
 INPUT C:\Users\Uporabnik\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\Uporabnik\Desktop\FP-projekt\Short descripton\descrtipton.tex
+INPUT c:\Users\Uporabnik\Desktop\FP-projekt\Kratek opis\descrtipton.tex
 OUTPUT descrtipton.log
 INPUT C:\Users\Uporabnik\AppData\Local\Programs\MiKTeX\tex\latex\amscls\amsart.cls
 INPUT C:\Users\Uporabnik\AppData\Local\Programs\MiKTeX\tex\latex\amscls\amsart.cls
