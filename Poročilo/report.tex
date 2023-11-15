@@ -2,29 +2,39 @@
 % ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
 \usepackage[slovene]{babel}
 \usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{url}
-%\usepackage[normalem]{ulem}
+\usepackage[normalem]{ulem}
 \usepackage[dvipsnames,usenames]{color}
 \usepackage{caption}
 \usepackage{lipsum}
 \usepackage{tikz}
+\usepackage{listings}
+\usepackage{xcolor}
 
+\lstset{
+    language=Python,
+    basicstyle=\small\ttfamily,
+    commentstyle=\color{green!50!black},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    numbers=left
+}
 \usetikzlibrary{graphs}
 \usetikzlibrary{graphs.standard}
 
-%\makeatletter
-%\renewcommand\section{\@startsection{section}{1}%
-%  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
-%  {\normalfont\scshape\large\centering}}
-%\renewcommand\subsection{\@startsection{subsection}{2}%
-%  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
-%  {\normalfont\scshape}}
-%\renewcommand\subsubsection{\@startsection{subsubsection}{3}%
-%  \z@{.5\linespacing\@plus.7\linespacing}{-.5em}%
-%  {\normalfont\itshape}}
-%\makeatother
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
+  {\normalfont\scshape\large\centering}}
+\renewcommand\subsection{\@startsection{subsection}{2}%
+  \z@{.5\linespacing\@plus.7\linespacing}{.5\linespacing}%
+  {\normalfont\scshape}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}%
+  \z@{.5\linespacing\@plus.7\linespacing}{-.5em}%
+  {\normalfont\itshape}}
+\makeatother
 
 % ne spreminjaj podatkov, ki vplivajo na obliko strani
 \textwidth 15cm
@@ -141,6 +151,92 @@ verjetnostjo v nekem koraku vzameva graf z manj povezavami, ki pa je morda bolj�
 in s tem preveriva, če najin algoritem deluje, nato pa n in d povečujeva. Tudi v drugi fazi projekta bova pozorna na efektivnost oz. časovno zahtevnost, ter 
 bova ugotovitve glede tega zapisala v poročilu.\newline 
 Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
+\vspace{10pt}
+\section{Koda}
+\vspace{10pt}
+\subsection{1.\ faza:}
+\vspace{10pt}
+
+\begin{lstlisting}[language=Python]
+    from sage.graphs.graph_generators import graphs
+    
+    def najdi_graf_z_premerom(n, d):
+        # Najvecje stevilo povezav in graf z najvec povezavami.
+        max_povezave = 0
+        graf_z_max_povezav = None
+        
+        # Zanka po vseh povezanih grafih z n vozlisci, ki jih generiramo 
+        # z uporabo nauty_geng().
+        
+        for G in graphs.nauty_geng(str(n) + " -c"):
+            
+            # Premer grafa.
+            premer = G.premer()
+            
+            # Ce srecamo graf katerega premer je enak nasemu premeru d
+            if premer == d:
+                # zabelezimo stevilo povezav
+                stevilo_povezav = G.size()
+                
+                # Ce je stevilo povezav vecje od trenutnega maksimuma, posodobi maksimum.
+                if stevilo_povezav > max_povezave:
+                    max_povezave = stevilo_povezav
+                    graf_z_max_povezav = G.copy()  
+        
+        return graf_z_max_povezav, max_povezave
+    
+    # Primer za neko stevilo vozlisc n in premer d.
+    n = 8
+    d = 3
+    
+    # Poiscemo povezan graf z dolocenim stevilom vozlisc in premerom, ki bo imel maksimalno stevilo povezav.
+    graf_z_max_povezav, max_povezave = najdi_graf_z_premerom(n, d)
+    
+    % Preveri, ali je bil graf najden
+    if graf_z_max_povezav:
+        print(f"Povezan graf z {n} vozlsci in premerom {d} s {max_povezave} povezavami:")
+        print(graf_z_max_povezav)
+        
+        % Prikazi graf
+        graf_z_max_povezav.show()
+    else:
+        print(f"Noben povezan graf ni bil najden z {n} vozlisci in premerom {d}.")
+    
+    
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    
+    rezultati = []
+    
+    % Zanka za preiskovanje razlicnih kombinacij n in d
+    for n in range(1, 10):
+        for d in range(1, n):
+            graf_z_max_povezav, max_povezave = najdi_graf_z_premerom(n, d)
+            rezultat_slovar = {
+                'n': n,
+                'd': d,
+                'max_povezave': max_povezave
+            }
+            rezultati.append(rezultat_slovar)
+    
+    % Ustvari DataFrame iz rezultatov
+    df = pd.DataFrame(rezultati)
+    
+    % Izpisi DataFrame
+    print(df)
+    
+    % Prikazi graf rezultatov
+    plt.figure(figsize=(10, 6))
+    for n in range(1, 9):
+        podskupina = df[df['n'] == n]
+        plt.plot(podskupina['d'], podskupina['max_povezave'], label=f'n={n}')
+    plt.xlabel('premer (d)')
+    plt.ylabel('maksimalno stevilo povezav')
+    plt.legend()
+    plt.title('max_povezave(d) za razlicne n')
+    plt.show()
+    \end{lstlisting}
+
 
 \section{Ugotovitve}
 Naloga nam zastavlja problem ugotovitve največjega možnega števila povezav v povezanih grafih
