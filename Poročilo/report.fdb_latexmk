@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1700085315 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1700085357
+["pdflatex"] 1700602214 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1700602233
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1700084393 31952 0e1833eb787f9018dfb49d14e4265dd2 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1678263723 40136 c8531ec035528a0d7195c08951a1fb53 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/eccc1200.pk" 1700084400 30576 ce7519603757c8d3bd7cd0c5fd3d7055 ""
@@ -9,7 +9,6 @@
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1200.pk" 1638035537 28440 c3093f4f233e323b88b9a0ace516a00f ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecrm1440.pk" 1638035538 34320 7758ea32e46160c384a91dd8576e4975 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1095.pk" 1700084396 21972 93fec8fc4f5613176b741c9c37078b02 ""
-  "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ectt1200.pk" 1700084394 24152 94d4ae8ccbe8a2ef9a231709bc2ed31b ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1634062410 9717281 0a15bc2c2708c83680405c55277cf8f4 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1700084405 82686 2381c3433487640bf26aa76a10db7eb2 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecbx1200.tfm" 993058358 3200 b8d69bc738e5ef3e08cefeef3109ff56 ""
@@ -23,7 +22,6 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1200.tfm" 993058526 3152 4850ff0163852b7fab34bd55e1197f28 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ecrm1440.tfm" 993058528 3168 3bd7b08ba4330af81521911744311212 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ectt1095.tfm" 993058742 1352 fa21dcb5ddc7d1dc47d14cd897fdeb0f ""
-  "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/ectt1200.tfm" 993058744 1348 c48a0620e07683860afba1730adf9e53 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1233951854 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -146,6 +144,7 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/listings/listings.sty" 1623001342 80964 64e57373f36316e4a09b517cbf1aba2e ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstlang1.sty" 1623001343 204271 bae5b2d457283e99567249c1990510be ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/listings/lstmisc.sty" 1623001342 77022 ee25ce086f4a79d8cf73bac6f94c02a5 ""
+  "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/multirow/multirow.sty" 1615976118 6149 2398eec4faa1ee24ff761581e580ecf1 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/pgf/basiclayer/pgf.sty" 1621069645 1090 bae35ef70b3168089ef166db3e66f5b2 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/pgf/basiclayer/pgfcore.sty" 1621069645 410 615550c46f918fcbee37641b02a862d9 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty" 1621069645 21013 f4ff83d25bb56552493b030f27c075ae ""
@@ -160,9 +159,10 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1623002060 55589 34128738f682d033422ca125f82e5d62 ""
   "C:/Users/Uporabnik/Desktop/graf za do n=9.jpg" 1698956376 48517 a6ae72e453325f457fa6252976fe6be7 ""
-  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1700085314 14968 b86c8effc09ebbf6e1d88b4d64be4e80 ""
-  "report.aux" 1700085316 1312 0983f1807c90d24b572a67ca1e7f4507 "pdflatex"
-  "report.tex" 1700085314 14968 b86c8effc09ebbf6e1d88b4d64be4e80 ""
+  "C:/Users/Uporabnik/Desktop/graf_n8.jpg" 1700600429 31569 bd89ad90829bb00673172163fb7f6be3 ""
+  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1700602214 20159 7b0cca2da60154c6454ec0d0625b124b ""
+  "report.aux" 1700602216 1809 a34d475f6734a8659f5e6ca73e897769 "pdflatex"
+  "report.tex" 1700602214 20159 7b0cca2da60154c6454ec0d0625b124b ""
   (generated)
   "report.log"
   "report.pdf"

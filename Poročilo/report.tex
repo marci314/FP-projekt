@@ -3,6 +3,7 @@
 \usepackage[slovene]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{multirow}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{url}
 \usepackage[normalem]{ulem}
@@ -14,6 +15,10 @@
 \usepackage{xcolor}
 
 \lstset{
+    breaklines=true,    
+    breakatwhitespace=false,
+    postbreak=\space,   
+    tabsize=2,    
     language=Python,
     basicstyle=\small\ttfamily,
     commentstyle=\color{green!50!black},
@@ -154,7 +159,7 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
 \vspace{10pt}
 \section{Koda}
 \vspace{10pt}
-\subsection{1.\ faza:}
+\subsection{1.\ faza - koda:}
 \vspace{10pt}
 
 \begin{lstlisting}[language=Python]
@@ -165,9 +170,7 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
         max_povezave = 0
         graf_z_max_povezav = None
         
-        # Zanka po vseh povezanih grafih z n vozlisci, ki jih generiramo 
-        # z uporabo nauty_geng().
-        
+        # Zanka po vseh povezanih grafih z n vozlisci, ki jih generiramo z uporabo nauty_geng().
         for G in graphs.nauty_geng(str(n) + " -c"):
             
             # Premer grafa.
@@ -192,15 +195,15 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
     # Poiscemo povezan graf z dolocenim stevilom vozlisc in premerom, ki bo imel maksimalno stevilo povezav.
     graf_z_max_povezav, max_povezave = najdi_graf_z_premerom(n, d)
     
-    % Preveri, ali je bil graf najden
+    
+    # Ce je graf najden ga prikazemo
     if graf_z_max_povezav:
         print(f"Povezan graf z {n} vozlsci in premerom {d} s {max_povezave} povezavami:")
         print(graf_z_max_povezav)
         
-        % Prikazi graf
         graf_z_max_povezav.show()
     else:
-        print(f"Noben povezan graf ni bil najden z {n} vozlisci in premerom {d}.")
+        print(f"Graf z {n} vozlisci in premerom {d} ni bil najden .")
     
     
     import pandas as pd
@@ -208,7 +211,7 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
     
     rezultati = []
     
-    % Zanka za preiskovanje razlicnih kombinacij n in d
+    # Zanka za preiskovanje razlicnih kombinacij n in d, grafe z maksimalnim stevilom povezav shranjujemo v slovar
     for n in range(1, 10):
         for d in range(1, n):
             graf_z_max_povezav, max_povezave = najdi_graf_z_premerom(n, d)
@@ -219,13 +222,12 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
             }
             rezultati.append(rezultat_slovar)
     
-    % Ustvari DataFrame iz rezultatov
+    # Prikazemo rezultate s tabelo
     df = pd.DataFrame(rezultati)
-    
-    % Izpisi DataFrame
+
     print(df)
     
-    % Prikazi graf rezultatov
+    # Prikazemo tudi graf, ki predstavlja maksimalno stevilo povezav v odvisnosti od d za razlicne n
     plt.figure(figsize=(10, 6))
     for n in range(1, 9):
         podskupina = df[df['n'] == n]
@@ -235,87 +237,156 @@ Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
     plt.legend()
     plt.title('max_povezave(d) za razlicne n')
     plt.show()
-    \end{lstlisting}
+\end{lstlisting}
+
+\subsection{2.\ faza - koda:}
+\vspace{10pt}
+    
+\begin{lstlisting}[language=Python]
+    import networkx as nx
+    import matplotlib.pyplot as plt
+    import random
+    from itertools import combinations
+    import math
+    
+    
+    def spodnja_meja(n, d):
+    if d >= n:
+        return 'Izbrani premer je prevelik'
+    elif d < 1:
+        return 'Izbrani premer je premajhen'
+    elif d == 1:
+        G = nx.complete_graph(n)
+        return G
+    else:
+        G = nx.complete_graph(n - d + 1)
+        new_node = n - d + 1
+        for i in range(n - d):
+            existing_node = i
+            G.add_edge(new_node, existing_node)
+        if d > 2:
+            for i in range(n - d + 2, n):
+                new_nodes = i
+                G.add_edge(new_nodes, new_nodes - 1)
+        return G
 
 
+    # Presteje stevilo povezav v grafu.
+    def ciljna_funkcija(graf):
+        return len(graf.edges)
+
+
+    # Najde najkrajso mozno pot v grafu med zacetnim in koncnim vozliscem.
+    def najdi_pot(graf, zacetek, konec):
+        try:
+            pot = nx.shortest_path(graf, source=zacetek, target=konec)
+            return pot
+        except nx.NetworkXNoPath:
+            return None
+
+
+    # Kot argument sprejme graf ter pot iz katere zelimo odstranit povezavo, nato iz nje nakljucno odstrani povezavo.
+    def odstrani_nakljucno_povezavo_iz_poti_v_grafu(graf, pot):
+        nakljucni_indeks_povezave = random.randint(1, len(pot) - 1)
+        povezava_za_odstranitev = (pot[nakljucni_indeks_povezave - 1], pot[nakljucni_indeks_povezave])
+        graf.remove_edge(*povezava_za_odstranitev)
+        return graf
+
+
+    # METAHEVRISTIcNI ALGORITEM 
+    def simulirano_hlajenje_2_povezavi_razmaka_spodnja_meja(n, max_iteracij, zacetna_temperatura, stopnja_hlajenja, premer):
+        trenutna_resitev = spodnja_meja(n, premer)
+        najboljsa_resitev = trenutna_resitev.copy()
+        temperatura = zacetna_temperatura
+
+        for iteracija in range(max_iteracij):
+            # Preverimo kaksen je premer, bodisi je vecji ali enak premeru trenutne resitve, bodisi pa je manjsi od 1. V zadnjem primeru je torej nepovezan graf. Dodamo povezavo.
+            if premer <= nx.diameter(trenutna_resitev) or nx.diameter(trenutna_resitev) < 1:
+                # Izbere 2 nakljucni vozlisci, ki nista povezani.
+                vozlisce1 = random.choice(list(trenutna_resitev.nodes))
+                vozlisca_2_razmaka = [vozlisce for vozlisce in trenutna_resitev.nodes - set([vozlisce1]) if nx.shortest_path_length(trenutna_resitev, source=vozlisce1, target=vozlisce) == 2]
+                vozlisce2 = random.choice(vozlisca_2_razmaka)
+                # Dodamo povezavo med izbranima vozliscema.
+                nova_resitev = trenutna_resitev.copy()
+                nova_resitev.add_edge(vozlisce1, vozlisce2) 
+                # Preverimo ali je nov graf tak, da ima vec povezav. V primeru da je to res, posodobimo najboljso resitev, sicer pa z verjetnostjo izberemo ali bomo posodobili trenutno resitev ali ne.
+                # Opomba: Lahko pride do izbire "slabsega" grafa, upamo, da nas bo ta "slabsi" vseeno pripeljal do boljse resitve v nadaljevanju.
+                delta = ciljna_funkcija(nova_resitev) - ciljna_funkcija(trenutna_resitev)
+                if (delta > 0 and premer <= nx.diameter(nova_resitev)) or random.random() < math.exp(-delta / temperatura):
+                    trenutna_resitev = nova_resitev.copy()
+                    if ciljna_funkcija(nova_resitev) > ciljna_funkcija(najboljsa_resitev) and premer == nx.diameter(nova_resitev):
+                        najboljsa_resitev = nova_resitev.copy()
+            else:
+                # Poiscemo kombinacije vozlisc z najvecjo ekscentricnostjo.
+                ekscentricnosti = nx.eccentricity(trenutna_resitev)  
+                max_ekscentricnost = max(ekscentricnosti.values())
+                vozlisca_z_max_ekscentricnostjo = [vozlisce for vozlisce, ekscentricnost in ekscentricnosti.items() if ekscentricnost == max_ekscentricnost]
+                kombinacije_parov = list(combinations(vozlisca_z_max_ekscentricnostjo, 2))
+                rezultat = []
+                # Izberemo najbolj oddaljeni vozlisci.
+                for i, j in kombinacije_parov:
+                    potencialen_rezultat = najdi_pot(trenutna_resitev, i, j) 
+                    if potencialen_rezultat and len(potencialen_rezultat) > len(rezultat):
+                        rezultat = potencialen_rezultat
+                nova_resitev = trenutna_resitev.copy()
+                nova_resitev = odstrani_nakljucno_povezavo_iz_poti_v_grafu(trenutna_resitev.copy(), rezultat)
+                # Preverimo ali je nov graf tak, da ima vec povezav. V primeru da je to res, posodobimo najboljso resitev, sicer pa z verjetnostjo izberemo ali bomo posodobili trenutno resitev ali ne.
+                # Opomba: Lahko pride do izbire "slabsega" grafa, upamo, da nas bo ta "slabsi" vseeno pripeljal do boljse resitve v nadaljevanju.
+                delta = ciljna_funkcija(nova_resitev) - ciljna_funkcija(trenutna_resitev)
+                # IF pogoj je vedno izpolnjen, pustimo ga zgolj za voljo testiranja.
+                if ((delta > 0 and premer <= nx.diameter(nova_resitev)) or random.random() < math.exp(-delta / temperatura)) and nx.is_connected(nova_resitev):
+                    trenutna_resitev = nova_resitev.copy()
+                    if ciljna_funkcija(nova_resitev) > ciljna_funkcija(najboljsa_resitev) and premer == nx.diameter(nova_resitev):
+                        najboljsa_resitev = nova_resitev.copy()
+            # Znizamo(ohladimo) temperaturo po stopnji hlajenja.
+            temperatura *= stopnja_hlajenja
+
+        return najboljsa_resitev
+
+    # Prikaz delovanja algoritma na primeru.
+    st_vozlisc = 30
+    max_iteracij = 1000
+    zacetna_temperatura = 1.0
+    stopnja_hlajenja = 0.95
+    zeljen_premer = 7
+
+    najboljsi_graf_s_m = simulirano_hlajenje_2_povezavi_razmaka_spodnja_meja(st_vozlisc, max_iteracij, zacetna_temperatura, stopnja_hlajenja, zeljen_premer)
+    print(f"Stevilo povezav v najboljsem generiranem grafu: {ciljna_funkcija(najboljsi_graf_s_m)}")
+
+    # Graf se prikazemo.
+    plt.figure(figsize=(8, 8))
+    nx.draw(najboljsi_graf_s_m, with_labels=True, font_weight='bold', node_color='skyblue', node_size=800, font_size=10)
+    plt.show()
+\end{lstlisting}
+
+\pagebreak
 \section{Ugotovitve}
-Naloga nam zastavlja problem ugotovitve največjega možnega števila povezav v povezanih grafih
-z določenim številom točk $n$ in določenim premerom $d$. Za $d = 1$ ugotovimo, da je ne glede
+\subsection{1.\ faza - ugotovitve:}
+\noindent Za $d = 1$ ugotovimo, da je ne glede
 na izbiro števila vozlišč $n$, iskani graf ravno polni graf in ima posledično
 $\frac{n (n - 1)}{2}$ povezav. V nasledjem koraku hitro ugotovimo, da se pri $d = 2$ število
 povezav zmanjša le za $1$, saj se z odstranitvijo katere koli poljubne povezave v polnem grafu
 premer poveča na $d = 2$ in ker smo za to potrebovali odstraniti le eno samo povezavo je največje
 možno število povezav v grafu z $n$ točkami in premerom $d = 2$ enako $\frac{n (n - 1)}{2} - 1$.
 Podobno opazimo, da so grafi za premere $d = n - 1$ ravno drevesa s stopnjo $2$ in je zato število
-povezav enako $n - 1$. Tako nas pri dani nalogi v resnici zanimajo predvsem grafi za katere velja
+povezav enako $n - 1$. Tako nas pri dani nalogi v resnici zanimajo predvsem grafi z
 $d \in \{3, \dots, n - 2\}$.
 
-Nalogo sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
-pomagala tudi z algoritmi napisanimi spodaj. Opazila sva, da so iskani grafi za premer $d = 1$ polni grafi in
-imajo kot taki $\frac{n (n - 1)}{2}$ povezav. Za premer $d = 2$ sva opazila, da je potrebno odstraniti
-polnemu grafu le eno povezavo in je tako maksimalno število povezav enako $\frac{n (n - 1)}{2} - 1$. Grafi s
-premerom $d = n - 1$ so prav tako enolično določeni kot drevesa s stopnjo 2 in imajo tako $n - 1$ povezav.
-Tako sva nadaljevala z reševanjem jedra problema, ki so grafi s premerom $d \in \{3, \dots, n - 2\}$.\\
+\noindent V prvi fazi sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
+pomagala tudi s kodo iz 4.1. \\
 
-\noindent 1.\ algoritem:
-\begin{verbatim}
-    def find_connected_graph_with_diameter(n, d):
-        max_edges = 0
-        max_edges_graph = None
-        for G in graphs.nauty_geng(str(n) + " -c"):
-            diameter = G.diameter()
-            if diameter == d:
-                num_edges = G.size()
-                if num_edges > max_edges:
-                    max_edges = num_edges
-                    max_edges_graph = G.copy()
-    return max_edges_graph, max_edges
+\noindent Napisani algoritem je z uporabo funkcije nauty geng generiral vse povezane grafe na n vozliščih, izločeval tiste, katerih premer ni bil enak d, ter posodabljal spremenljivko z
+maksimalnim številom povezav ter tem povezavam ustreznemu grafu. Podatke o največjem možnem številu povezav za grafe do $10$ vozlišč sva zbrala v tabeli 1 in vrednosti prikazala na
+spodnjem grafu.
 
-\end{verbatim}
-\pagebreak
-2.\ algoritem:
-\begin{verbatim}
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    
-    results = []
-    
-    for n in range(1, 10):
-        for d in range(1, n):
-            max_edges_graph, max_edges = find_connected_graph_with_diameter(n, d)
-            result_dict = {
-                'n': n,
-                'd': d,
-                'max_edges': max_edges
-            }
-            results.append(result_dict)
-    
-    
-    df = pd.DataFrame(results)
-    
-    print(df)
-    
-    plt.figure(figsize=(10, 6))
-    for n in range(1, 10):
-        subset = df[df['n'] == n]
-        plt.plot(subset['d'], subset['max_edges'], label=f'n={n}')
-    plt.xlabel('diameter (d)')
-    plt.ylabel('maximum Edges')
-    plt.legend()
-    plt.title('max_edges(d) for different n')
-    plt.show()
-
-
-\end{verbatim}
-
-Napisani algoritem je dal podatke o največjem možnem številu povezav za grafe do $10$ vozlišč,
-ki sva jih uredila v sledečo tabelo in prikazala na grafikonu:
+\vspace{-7em}
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} 
+    \begin{tabular}{|c|*{9}{c|}} 
     \hline
-    \multicolumn{1}{|c|}{\textbf{n$\backslash$d}} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\ 
+    \multirow{2}{*}{\textbf{n$\backslash$d}} & \multicolumn{9}{c|}{\textbf{Število povezav}} \\ \cline{2-10}
+    & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\ 
     \hline
     2 & 1 & & & & & & & & \\ 
     3 & 3 & 2 & & & & & & & \\ 
@@ -328,7 +399,7 @@ ki sva jih uredila v sledečo tabelo in prikazala na grafikonu:
     10 & 45 & 44 & 36 & 29 & 23 & 18 & 14 & 11 & 9 \\ 
     \hline
     \end{tabular}
-    \caption{Opis tabele.}
+    \caption{Število povezav glede na število vozlišč in premer.}
     \label{tab:tabela1}
 \end{table}
 
@@ -340,21 +411,25 @@ ki sva jih uredila v sledečo tabelo in prikazala na grafikonu:
 \end{figure}
 
 \pagebreak
+\noindent Z opazovanjem tabele sva na podlagi vzorca uspela za grafe z $d > 1$ zapisati formulo, ki nama pove
+maksimalno število povezav v grafu z n vozlišči in premerom d: $\frac{(n - d + 1)(n - d)}{2} + n - 2$. Te formule
+ne bova dokazovala in jo bova v nadaljnem raziskovanju uporabljala kot oceno, saj vanjo brez dokaza ne moreva biti
+popolnoma prepričana. \newline 
+Z nadaljnim opazovanjem generiranih grafov sva opazila, da vsi grafi vsebujejo poln podgraf velikosti $n - d + 1$. Na grafu prikazanem spodaj
+se to lepo vidi. \\
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{C:/Users/Uporabnik/Desktop/graf_n8.jpg} % Druga slika
+    \caption{Graf z 8 vozlišči in premerom 3, ki vsebuje poln podgraf velikosti 6.}
+    \label{fig:slika2}
+\end{figure}
 
-% tle bo treba še elegantno dodat tvoj postopek izračuna
-Iz tabele smo s sledečim računom prišli do formule, ki nam za $d > 1$ pove maksimalno število povezav za
-grafe do $n = 10$ vozlišč in morda še več, za kar trenutno ne moremo še zagotovo trditi.\\
+\pagebreak
 
+Glede učinkovitosti sva ugotovila, da je najin algoritem učinkovit za grafe z številom vozlišč do 9. Od tod naprej traja enostavno preveč časa. Že pri številu vozlišč enako
+8, je povezanih grafov kar 251548592.
 
-Z opazovanjem generiranih grafov sva opazila, da vsi grafi vsebujejo poln podgraf velikosti $n - d + 1$.
-V nadaljevanju smo opazili, da imajo grafi za premere $d > 1$ poleg $\frac{(n - d + 1)(n - d)}{2}$ povezav (zaradi
-prej opaženega polnega grafa velikosti $n - d + 1$) dodatno še $n - 2$ povezav, ki niso enolično določene.
-Tako imamo ponovno podano enako formulo ki nam za grafe s premerom $d > 2$ pove, da je maksimalno število
-povezav enako $\frac{(n - d + 1)(n - d)}{2} + n - 2$.\\
-
-
-V drugem delu naloge se bova problema lotila s metahurističnim pristopom.
 
 
 \end{document}
