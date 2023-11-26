@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1700602214 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1700602233
+["pdflatex"] 1701034301 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1701034303
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1700084393 31952 0e1833eb787f9018dfb49d14e4265dd2 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1678263723 40136 c8531ec035528a0d7195c08951a1fb53 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/eccc1200.pk" 1700084400 30576 ce7519603757c8d3bd7cd0c5fd3d7055 ""
@@ -160,10 +160,10 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1623002060 55589 34128738f682d033422ca125f82e5d62 ""
   "C:/Users/Uporabnik/Desktop/graf za do n=9.jpg" 1698956376 48517 a6ae72e453325f457fa6252976fe6be7 ""
   "C:/Users/Uporabnik/Desktop/graf_n8.jpg" 1700600429 31569 bd89ad90829bb00673172163fb7f6be3 ""
-  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1700602214 20159 7b0cca2da60154c6454ec0d0625b124b ""
-  "report.aux" 1700602216 1809 a34d475f6734a8659f5e6ca73e897769 "pdflatex"
-  "report.tex" 1700602214 20159 7b0cca2da60154c6454ec0d0625b124b ""
+  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1701034298 187432 f6805d7a38805b91803d2462f829a5de ""
+  "report.aux" 1701034303 3580 21e6fe63c22ff443e568cb3084b867b4 "pdflatex"
+  "report.tex" 1701034298 187432 f6805d7a38805b91803d2462f829a5de ""
   (generated)
+  "report.aux"
   "report.log"
   "report.pdf"
-  "report.aux"
