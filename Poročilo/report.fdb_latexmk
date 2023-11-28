@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1701034594 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1701034596
+["pdflatex"] 1701212398 "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" "report.pdf" "report" 1701212447
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1700084393 31952 0e1833eb787f9018dfb49d14e4265dd2 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1440.pk" 1678263723 40136 c8531ec035528a0d7195c08951a1fb53 ""
   "C:/Users/Uporabnik/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/eccc1200.pk" 1700084400 30576 ce7519603757c8d3bd7cd0c5fd3d7055 ""
@@ -158,11 +158,16 @@
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/ulem/ulem.sty" 1578651445 15682 94f55b803e160cf7fb6e4d77d07cfe1d ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Uporabnik/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1623002060 55589 34128738f682d033422ca125f82e5d62 ""
+  "C:/Users/Uporabnik/Desktop/45_3_914_1000it.jpg" 1701208881 184735 0e08e48131cf0cc597d6144c1f9e4905 ""
+  "C:/Users/Uporabnik/Desktop/45_4_859_1000it.jpg" 1701209547 56270 1553c1c9e4c3b3f8799211b450151bbc ""
+  "C:/Users/Uporabnik/Desktop/45_5_706_1000it.jpg" 1701209587 37356 a748ff273a946a813739486aee85298a ""
+  "C:/Users/Uporabnik/Desktop/45_7_571_2000it.jpg" 1701209912 32783 5af33b618141709722f822beecdc8dda ""
+  "C:/Users/Uporabnik/Desktop/45_8_425_2000it.jpg" 1701209810 73831 0925dd372efd3b79459a79decc22b96c ""
   "C:/Users/Uporabnik/Desktop/graf za do n=9.jpg" 1698956376 48517 a6ae72e453325f457fa6252976fe6be7 ""
   "C:/Users/Uporabnik/Desktop/graf_n8.jpg" 1700600429 31569 bd89ad90829bb00673172163fb7f6be3 ""
-  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1701034593 246978 35f92c573dfa858f708de588d7c49fbf ""
-  "report.aux" 1701034596 3996 e2da0d54f97640990ead32cb813d2d38 "pdflatex"
-  "report.tex" 1701034593 246978 35f92c573dfa858f708de588d7c49fbf ""
+  "c:/Users/Uporabnik/Desktop/FP-projekt/Poroèilo/report.tex" 1701212397 248625 15b90ae1de59160fc3db5c2f760921b8 ""
+  "report.aux" 1701212400 4926 7e32f28c2b400abf1b5c0d65066a4d12 "pdflatex"
+  "report.tex" 1701212397 248625 15b90ae1de59160fc3db5c2f760921b8 ""
   (generated)
   "report.log"
   "report.aux"
