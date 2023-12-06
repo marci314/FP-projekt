@@ -8,6 +8,7 @@
 \usepackage{url}
 \usepackage[normalem]{ulem}
 \usepackage[dvipsnames,usenames]{color}
+\usepackage{csquotes}
 \usepackage{caption}
 \usepackage{lipsum}
 \usepackage{hyperref}
@@ -133,22 +134,22 @@ Ugotavljala bova tudi efektivnost najinih metod v odvisnosti od vrednosti n in d
 
 \section{Potek Dela}
 
-Ideja prve faze projekta t.i.\ exhaustive search-a je, da z generiranjem vseh možnih povezanih grafov na n vozliščih s premerom d, poiščeva tiste, ki 
-imajo maksimalno število povezav. To bova počela za majhne vrednosti n in d. Kako majhne, bo odvisno od časovne zahtevnosti samega algoritma, kajti 
-je pričakovati, da bo že pri ne malo od 5 večjih vrednostih n algoritem počasen. Na podlagi generiranja grafov za različne n in d bova poskušala
+Ideja prve faze projekta t.i.\ exhaustive search-a je, da z generiranjem vseh možnih povezanih grafov na $n$ vozliščih s premerom $d$, poiščeva tiste, ki 
+imajo maksimalno število povezav. To bova počela za majhne vrednosti $n$ in $d$. Kako majhne, bo odvisno od časovne zahtevnosti samega algoritma, kajti 
+je pričakovati, da bo že pri ne malo od 5 večjih vrednostih n algoritem počasen. Na podlagi generiranja grafov za različne $n$ in $d$ bova poskušala
 ugotoviti kakšne lastnosti, tako strukturne kot vizualne, lahko pripiševa tem grafom. Naraščanje/padanje števila povezav v odvisnosti od števila 
 vozlišč oz.\ premetra bova prikazala tudi s pomočjo grafa, ki se bo morda obnašal podobno kot kakšna znana funkcija, kar bo vsekakor pomagalo pri oceni 
-števila povezav za večje vrednosti n in d. Kot omenjeno bova poskusila najti kakšno formulo za maksimalno število povezav pri številu vozlišč n in premeru 
-d. Tako pridobljene formule, četudi bo morda držala, ne bova dokazovala in jo bova posledično uporabila kot oceno v primeru generiranja grafov. Na koncu 
+števila povezav za večje vrednosti $n$ in $d$. Kot omenjeno bova poskusila najti kakšno formulo za maksimalno število povezav pri številu vozlišč $n$ in premeru 
+$d$. Tako pridobljene formule, četudi bo morda držala, ne bova dokazovala in jo bova posledično uporabila kot oceno v primeru generiranja grafov. Na koncu 
 bova poleg ugotovitev glede lastnosti grafov v poročilu zapisala tudi pri kako velikih vrednostih n in d je najin algoritem prenehal učinkovito delovati. 
-V drugi fazi projekta se bova problema lotila z metahevristično metodo simulated annealing. Začela bova z nekim začetnim povezanim grafom G, ki bo ustrezal 
-pogojem n in d, nato pa bova dodala povezavo iz množice povezav komplementa grafa \(G\). V kolikor bo premer grafa \(G + e\) ostal isti, imamo nov graf, ki 
-ima isti premer vendar povezavo več. Če bo premer novega grafa manjši od d, pa bova poiskala vozlišči \(u\) in \(v\) na maksimalni razdalji in odstranjevala 
-povezave iz poti med \(u\) in \(v\) toliko časa, dokler ne bo premer spet d. Seveda se lahko zgodi, da bo premer večji od d, takrat pa bova spet poiskala 
-vozlišči \(u\) in \(v\) na maksimalni razdalji in dodajala neke povezave na poti med \(u\) in \(v\) toliko časa, dokler ne bo premer spet d. Povezave bova morala 
+V drugi fazi projekta se bova problema lotila z metahevristično metodo simulated annealing. Začela bova z nekim začetnim povezanim grafom $G$, ki bo ustrezal 
+pogojem $n$ in $d$, nato pa bova dodala povezavo iz množice povezav komplementa grafa \(G\). V kolikor bo premer grafa \(G + e\) ostal isti, imamo nov graf, ki 
+ima isti premer vendar povezavo več. Če bo premer novega grafa manjši od $d$, pa bova poiskala vozlišči \(u\) in \(v\) na maksimalni razdalji in odstranjevala 
+povezave iz poti med \(u\) in \(v\) toliko časa, dokler ne bo premer spet $d$. Seveda se lahko zgodi, da bo premer večji od $d$, takrat pa bova spet poiskala 
+vozlišči \(u\) in \(v\) na maksimalni razdalji in dodajala neke povezave na poti med \(u\) in \(v\) toliko časa, dokler ne bo premer spet $d$. Povezave bova morala 
 dodajati med ustreznimi vozlišči. Torej, če bo nov premer \(d-1\), bova dodala povezavo med vozliščema na oddaljenosti 2. Pri tem se zavedava, da z neko 
 verjetnostjo v nekem koraku vzameva graf z manj povezavami, ki pa je morda boljše izhodišče za naprej. Tudi tukaj bova začela na manjših vrednostih, 
-in s tem preveriva, če najin algoritem deluje, nato pa n in d povečujeva. Tudi v drugi fazi projekta bova pozorna na efektivnost oz. časovno zahtevnost, ter 
+in s tem preveriva, če najin algoritem deluje, nato pa $n$ in $d$ povečujeva. Tudi v drugi fazi projekta bova pozorna na efektivnost oz. časovno zahtevnost, ter 
 bova ugotovitve glede tega zapisala v poročilu.\newline 
 Algoritme in programe bova v obeh fazah pisala v CoCalc Jupyter notebook-u.
 \vspace{10pt}
@@ -173,7 +174,7 @@ $d \in \{3, \dots, n - 2\}$.
 \noindent V prvi fazi sva pričela reševati z opazovanjem in računanjem grafov z manjšim številom vozlišč $n$, pri tem sva si
 pomagala tudi s kodo iz 4.1. \\
 
-\noindent Napisani algoritem je z uporabo funkcije nauty geng generiral vse povezane grafe na n vozliščih, izločeval tiste, katerih premer ni bil enak d, ter posodabljal spremenljivko z
+\noindent Napisani algoritem je z uporabo funkcije nauty geng generiral vse povezane grafe na $n$ vozliščih, izločeval tiste, katerih premer ni bil enak $d$, ter posodabljal spremenljivko z
 maksimalnim številom povezav ter tem povezavam ustreznemu grafu. Podatke o največjem možnem številu povezav za grafe do $10$ vozlišč sva zbrala v tabeli 1 in vrednosti prikazala na
 spodnjem grafu.
 
@@ -225,8 +226,8 @@ se to lepo vidi. \\
 
 \pagebreak
 
-Glede učinkovitosti sva ugotovila, da je najin algoritem učinkovit za grafe z številom vozlišč do 9. Od tod naprej traja enostavno preveč časa. Že pri številu vozlišč enako
-8, je povezanih grafov kar 251548592
+\noindent Glede učinkovitosti sva ugotovila, da je najin algoritem učinkovit za grafe z številom vozlišč do 9. Od tod naprej traja enostavno preveč časa. Že pri številu vozlišč enako
+8, je povezanih grafov kar 251548592.
 
 
 \subsection{2.\ faza - testiranje:}
@@ -1119,42 +1120,56 @@ Glede učinkovitosti sva ugotovila, da je najin algoritem učinkovit za grafe z 
 
 \noindent Gornje tabele so rezultat testiranja pri različnih parametrih (navedenih v opisu tabel), spodaj pa so slike nekaterih grafov iz tabel. Potrdiva lahko hipotezo 
 o vsebovanosti kompletnih podgrafov ter vidiva, da najina ocena za maksimalno število povezav drži. Pri 1000 iteracijah je metahevrističen algoritem prenehal biti učinkovit, a 
-sva vseeno naredila še testiranje pri 2000 iteracijah, ter dobila enako ustrezne rezultate. 
+sva vseeno naredila še testiranje pri 2000 iteracijah, ter dobila enako ustrezne rezultate, ki niso nasprotovali hipotezi. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.3\textwidth]{C:/Users/Uporabnik/Desktop/45_5_706_1000it.jpg} 
-    \caption{n = 45, d = 5, št. povezav = 706 in 1000 iteracij, št. povezav po formuli = 863.}
+    \caption{$n = 45, d = 5$, št. povezav = 706 in 1000 iteracij, št. povezav po formuli = 863.}
     \label{fig:slika3}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.3\textwidth]{C:/Users/Uporabnik/Desktop/45_4_859_1000it.jpg} 
-    \caption{n = 45, d = 4, št. povezav = 859 in 1000 iteracij, št. povezav po formuli = 904.}
+    \caption{$n = 45, d = 4$, št. povezav = 859 in 1000 iteracij, št. povezav po formuli = 904.}
     \label{fig:slika3}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.3\textwidth]{C:/Users/Uporabnik/Desktop/45_3_914_1000it.jpg} 
-    \caption{n = 45, d = 3, št. povezav = 914 in 1000 iteracij, št. povezav po formuli = 946.}
+    \caption{$n = 45, d = 3$, št. povezav = 914 in 1000 iteracij, št. povezav po formuli = 946.}
     \label{fig:slika3}
 \end{figure}
+
+\break
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.3\textwidth]{C:/Users/Uporabnik/Desktop/45_8_425_2000it.jpg} 
-    \caption{n = 45, d = 8, št. povezav = 425 in 2000 iteracij, št. povezav po formuli = 746.}
+    \caption{$n = 45, d = 8,$ št. povezav = 425 in 2000 iteracij, št. povezav po formuli = 746.}
     \label{fig:slika3}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.3\textwidth]{C:/Users/Uporabnik/Desktop/45_7_571_2000it.jpg} 
-    \caption{n = 45, d = 7, št. povezav = 571 in 2000 iteracij, št. povezav po formuli = 784.}
+    \caption{$n = 45$, $d = 7$, št. povezav = 571 in 2000 iteracij, št. povezav po formuli = 784.}
     \label{fig:slika3}
 \end{figure}
 
+\noindent S pomočjo testiranja sva ugotovila, da so optimalni grafi za najin problem \enquote{vedno} značilne oblike.
+To lahko trdiva zgolj na podlagi testiranja za majhne in velike $n$, dokazovala tega ne bova. 
+Za demonstracijo najinih domnev lahko vzamemo fiksen $n$ in npr. $d = 5$. Označimo z $ x_1, x_2, \ldots, x_6 $ zaporedje kompletnih 
+podgrafov, iz katerega je po najinih domnevah sestavljen optimalen graf, ki bo za fiksen $n$ in $d = 6$ imel maksimalno število povezav.
+V vrstnem redu kot našteti bojo te podgrafi povezani med sabo v domnevno optimalnem grafu. Povezav med vozlišči iz nesosednih kompletnih podgrafov ni.
+Za $i = 1, 2, \ldots, 6$ naj $x_i$ ne bo oznaka za kompleten podgraf, ampak naj bo to tudi število vozlišč v njem. $x_i$ interpretiramo kot \enquote{žakelj}
+$x_i$-tih vozlišč.
+Torej pri fiksnem $n$ dobimo pogoj $ x_1 + x_2 + \ldots + x_6 = n $, vemo pa tudi, da je v zaporedju med $x_i$ in $x_{i+1}$, torej 
+med $i$-tim in $i+1$-tim podgrafom povezav $x_ix_{i+1}$.
+Znotraj i-tega podgrafa pa je $\binom{x_i}{2}$ povezav, ker je graf kompleten. Ugotovila sva torej, da bi bil lahko najin problem 
+analitičen, namreč lahko ga zastavimo kot maksimitiranje ciljne funkcije $\max\ \sum_{i=1}^{5} x_i \cdot x_{i+1} + \sum_{i=1}^{6} \binom{x_i}{2} $ 
+pri pogoju $ x_1 + x_2 + \ldots + x_6 = n $.
 
 \end{document}
