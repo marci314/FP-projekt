@@ -1,3 +1,5 @@
+#ALGORITEM UPORABLJEN V PRVI FAZI
+
 from sage.graphs.graph_generators import graphs
     
     def najdi_graf_z_premerom(n, d):
