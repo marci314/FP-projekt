@@ -1170,6 +1170,54 @@ Torej pri fiksnem $n$ dobimo pogoj $ x_1 + x_2 + \ldots + x_6 = n $, vemo pa tud
 med $i$-tim in $i+1$-tim podgrafom povezav $x_ix_{i+1}$.
 Znotraj i-tega podgrafa pa je $\binom{x_i}{2}$ povezav, ker je graf kompleten. Ugotovila sva torej, da bi bil lahko najin problem 
 analitičen, namreč lahko ga zastavimo kot maksimitiranje ciljne funkcije $\max\ \sum_{i=1}^{5} x_i \cdot x_{i+1} + \sum_{i=1}^{6} \binom{x_i}{2} $ 
-pri pogoju $ x_1 + x_2 + \ldots + x_6 = n $.
+pri pogoju $ x_1 + x_2 + \ldots + x_6 = n $. V repozitoriju se nahaja koda za program, ki s pomočjo metahevristične metode simulated anneling
+išče optimalne grafe pri danem $n$ in $d$, upošteva pa, da iščemo grafe zgoraj omenjene oblike. Ker sva problem prevedla na iskanje maksimuma zgornje funkcije pri omenjenem
+pogoju, dobimo hitreje rezultate, ki so optimalnejši v primerjavi s prejšnimi. Algoritem je tudi učinkovitejši, namreč sedaj lahko izvajava testiranja s 100000 iteracijami, ki se 
+izvedejo veliko hitreje kot prejšni algoritem, ki je že pri 2000 iteracijah potreboval preveč časa in ni bil učinkovit. Spodaj so prvo prikazani rezultati za iste parametre $n$ in $d$ kot prej. 
+Pri spodnjih testih so parametri nastavljeni sledeče: max iteracij = 100000, zacetna temperatura = 1 in stopnja hlajenja = 0.999999.
+
+
+\begin{figure}[h]
+       \centering
+       \includegraphics[width=0.6\textwidth]{C:/Users/Uporabnik/Desktop/45_5_806_100000it.jpg} 
+       \caption{$n = 45, d = 5$, št. povezav = 806 in 100000 iteracij, št. povezav po formuli = 863.}
+       \label{fig:slika3}
+   \end{figure}
+
+   \begin{figure}[h]
+       \centering
+       \includegraphics[width=0.6\textwidth]{C:/Users/Uporabnik/Desktop/45_4_904_100000it.jpg} 
+       \caption{$n = 45, d = 4$, št. povezav = 904 in 100000 iteracij, št. povezav po formuli = 904. UJEMANJE!}
+       \label{fig:slika3}
+   \end{figure}
+
+   \begin{figure}[h]
+       \centering
+       \includegraphics[width=0.6\textwidth]{C:/Users/Uporabnik/Desktop/45_3_946_100000it.jpg} 
+       \caption{$n = 45, d = 3$, št. povezav = 946 in 100000 iteracij, št. povezav po formuli = 946. UJEMANJE!}
+       \label{fig:slika3}
+   \end{figure}
+
+   \begin{figure}[h]
+       \centering
+       \includegraphics[width=0.6\textwidth]{C:/Users/Uporabnik/Desktop/45_8_548_100000it.jpg} 
+       \caption{$n = 45, d = 8$, št. povezav = 548 in 100000 iteracij, št. povezav po formuli = 746.}
+       \label{fig:slika3}
+   \end{figure}
+
+   \begin{figure}[h]
+       \centering
+       \includegraphics[width=0.5\textwidth]{C:/Users/Uporabnik/Desktop/45_7_700_100000it.jpg} 
+       \caption{$n = 45, d = 8$, št. povezav = 700 in 100000 iteracij, št. povezav po formuli = 784.}
+       \label{fig:slika3}
+   \end{figure}
+
+\pagebreak
+
+\noindent Tudi drugi metahevristični algoritem potrjuje najine domneve glede oblike grafov, ki bojo optimalni pri fiksnih parametrih
+$n$ in $d$. Pri zgornjih testiranjih se je celo zgodilo, da je po 100000 iteracijah prišlo do ujemanja s formulo, grafa v teh primerih pa sta
+bila iste oblike. Zunanja kompletna podgrafa v zaporedju podgrafov sta bila velikosti 1. To nakazuje na to, da so kompletni podgrafi v krajiščih
+čim manj napihneni, notranji pa čim bolj. Glede časovne zahtevnosti je drugi algoritem vsekakor bolj učinkovit, tako da je bila prevedba problema 
+na maksimiziranje ciljne funkcije pri pogoju smiselna.
 
 \end{document}
